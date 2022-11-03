@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block titulo %}Atenciones{% endblock %}
+{% block contenido %}
+{% include "__menu.html" %}
+<div class="container-fluid  mt-5">
+<h3 class="text-white">Atenciones</h3>
+{% if session['tipo']==2 %}
+<button class="btn btn-secondary mb-3" type="button" id="mostrar">
+    Agregar atención
+</button>
+{% endif %}
+
+<div class="col w-25" id="form" style="display: none;">
+    <form action="/agregar_atencion" method="POST" class="text-white">
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha:</label>
+            <input  class="form-control" type="date" name="fecha" >
+        </div>
+        <div class="mb-3">
+            <label for="veterinario" class="form-label">Veterinario: {{session['nombre']+' '+session['apellido_p']}}</label>
+
+            <input type="hidden" class="form-control" name="veterinario" value="{{session['id']}}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="mascota"  class="form-label">Mascota:</label>
+            <select class="form-control w-100"id="categoria" name="mascota">
+                {% for mascota in mascotas %}
+                <option value="{{mascota.id}}">{{mascota.nombre}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="tratamiento"  class="form-label">Diagnostico:</label>
+            <textarea class="form-control" name="tratamiento" id="tratamiento" value="Agregar diagnostico"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="medicamento"  class="form-label">Medicamento:</label>
+            <select class="form-control w-100"id="medicamento" name="medicamento">
+                {% for med in medicamentos %}
+                <option value="{{med.id}}">{{med.descripcion}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+        <input class="btn btn-success" type="submit" value="Agregar">
+        </div>
+    </form>
+</div>
+
+<div class="bg-white p-3 border rounded">
+<table class="table table-striped table-bordered dt-responsive nowrap bg-white" id="tabla_atenciones">
+    <thead>
+        <tr>
+            <th>Mascota</th>
+            <th>Dueño</th>
+            <th>Veterinario</th>
+            <th>Diagnostico</th>
+            <th>Medicamento</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+       {% for atencion in atenciones %}
+        <tr>
+            <td>{{atencion.nombre_mascota}}</td>
+            <td>{{atencion.dueño}}</td>
+            <td>{{atencion.veterinario}}</td>
+            <td>  
+                <textarea class="form-control"  rows="4" cols="30" readonly>{{atencion.tratamiento}}</textarea>
+            </td>
+            <td>{{atencion.medicamento}}</td>
+            
+            <td>
+                {% if atencion.id_vet == session['id']%}
+                <a href="/atencion/{{atencion.id}}/modificar"  class="btn btn-warning"><i class='bx bx-edit bx-sm' alt="modificar"></i></a>
+                
+                <a href="/eliminar_atencion/{{atencion.id}}" class="btn btn-danger"><i class='bx bx-x-circle bx-sm' alt="eliminar"></i></a>
+                {% else %}
+                <p>No es tu paciente</p>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+        
+    </tbody>
+</table>
+</div>
+
+
+
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+{% block librerias %}
+<script>
+$(document).ready(function(){
+    $("#mostrar").click(function(){
+        
+        $('#form').toggle(1000); 
+    });
+});
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#tabla_atenciones').DataTable();
+    } );
+    </script>
+
+{% endblock %}
+
+

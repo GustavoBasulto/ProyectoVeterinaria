@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block titulo %}Modificar usuario{% endblock %}
+{% block contenido %}
+{% include "__menu.html" %}
+<div class="container  mt-5">
+<div class="row w-50 text-white">
+    <div class="form-group ">
+        <h2>Modificar usuario</h2>
+    </div>
+    <div class="row">
+        
+        <div class="col-6">
+        <form action="/modificar_usuario/{{usuario.identificacion}}" method="POST">
+            
+            <div class="form-group">
+                <label for="id">Identificacion:</label>
+                <input  class="form-control" type="text" name="id" value="{{usuario.identificacion}}" readonly>
+            </div>
+            <div class="form-group ">
+                <label for="nombre">Nombre:</label>
+                <input  class="form-control" type="text" name="nombre" value="{{usuario.nombre}}">
+            </div>
+            <div class="form-group">    
+                <label for="apellido">Apellido Paterno:</label>
+                <input class="form-control" type="text" name="apellidoP" value="{{usuario.apellido_p}}">
+            </div>
+            <div class="form-group">    
+                <label for="apellido">Apellido Materno:</label>
+                <input class="form-control" type="text" name="apellidoM" value="{{usuario.apellido_m}}">
+            </div>
+        </div>  
+        <div class="col-6">    
+            <div class="form-group">    
+                <label for="telefono">Telefono:</label>
+                <input class="form-control" type="text" name="telefono" value="{{usuario.telefono}}">
+            </div>
+            <div class="form-group">
+                <label for="mail" >Email:</label>
+                <input class="form-control" type="email" name="mail" value="{{usuario.mail}}">
+            </div>
+            <div class="form-group">
+                <label for="contraseña" >Contraseña:</label>
+                <input class="form-control" type="password" name="contraseña" value="">
+            </div>
+            <div class="form-group">
+                <label for="contraseña_confirm" >Confirmar Contraseña:</label>
+                <input class="form-control" type="password" name="contraseña_confirm" value="">
+            </div>
+            <input class="btn btn-warning" type="submit" value="modificar">
+        </form>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+{% block librerias %}
+
+{% endblock %}
+
+

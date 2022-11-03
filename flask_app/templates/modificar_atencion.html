@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block titulo %}Modificar atencion{% endblock %}
+{% block contenido %}
+{% include "__menu.html" %}
+<div class="container  mt-5">
+<div class="row w-50 text-white">
+    
+<div class="col w-25" id="form">
+    <form action="/modificar_atencion/{{atencion.id}}" method="POST" class="text-white">
+        <div class="form-group ">
+            <h2>Modificar atencion</h2>
+         </div>
+        <div class="mb-3">
+            <label for="id" class="form-label">ID:</label>
+            <input type="text" class="form-control" name="id" value="{{atencion.id}}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha:</label>
+            <input  class="form-control" type="date" name="fecha" value="{{atencion.fecha}}" >
+        </div>
+        <div class="mb-3">
+            <label for="veterinario" class="form-label">Veterinario:</label>
+            <input type="text" class="form-control" name="veterinario" value="{{atencion.veterinario}}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="mascota"  class="form-label">Mascota:</label>
+            <select class="form-control w-100"id="mascota" name="mascota">
+                {% for mascota in mascotas %}
+                <option value="{{mascota.id}}">{{mascota.nombre}}</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+        <div class="mb-3">
+            <label for="tratamiento"  class="form-label">Diagnostico:</label>
+            <textarea class="form-control" rows="4" name="tratamiento" id="tratamiento">{{atencion.tratamiento}}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="medicamento"  class="form-label">Medicamento:</label>
+            <select class="form-control w-100"id="medicamento" name="medicamento" id="medicamento">
+                {% for med in medicamentos %}
+                <option value="{{med.id}}">{{med.descripcion}}</option>
+                {% endfor %}
+            </select>
+            
+        </div>
+        <div class="mb-3">
+        <input class="btn btn-success" type="submit" value="Modificar">
+        </div>
+    </form>
+</div>
+</div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+{% block librerias %}
+<script>
+    document.ready = document.getElementById("medicamento").value = '{{atencion.id_med}}';
+</script>
+<script>
+    document.ready = document.getElementById("mascota").value = '{{atencion.id_mas}}';
+</script>
+{% endblock %}
+
+

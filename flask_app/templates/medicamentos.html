@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block titulo %}Medicamentos{% endblock %}
+{% block contenido %}
+{% include "__menu.html" %}
+<div class="container-fluid  mt-5">
+<h3 class="text-white">Medicamentos</h3>
+<button class="btn btn-secondary mb-3" type="button" id="mostrar">
+    Agregar medicamento
+</button>
+
+<div class="row w-25" id="medicamentos" style="display: none;">
+    <div class="col">
+        <form action="/agregar_medicamento" method="POST" class="">
+            
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripcion:</label>
+                <input  class="form-control" type="text" name="descripcion" id="descripcion" value="">
+            </div>         
+            <div class="mb-3">
+                <input class="btn btn-success" type="submit" value="Agregar">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="bg-white p-3 border rounded">
+<table class="table table-striped table-bordered dt-responsive nowrap bg-white " style="width:80%" id="tabla_medicamentos">
+    <thead>
+        <tr>
+            <th>Detalle</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for  medicamento in medicamentos %}
+        <tr>
+            <td>{{medicamento.descripcion}}</td>
+            <td>
+            <a href="/modificar_medicamento/{{medicamento.id}}"  class="btn btn-warning"><i class='bx bx-edit bx-sm' alt="modificar"></i></a>
+            <a href="/eliminar_medicamento/{{medicamento.id}}" class="btn btn-danger"><i class='bx bx-x-circle bx-sm' alt="eliminar"></i></a>
+            </td>  
+        </tr>
+        {% endfor %}
+        
+    </tbody>
+</table>
+</div>
+
+
+
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+{% block librerias %}
+<script>
+$(document).ready(function(){
+    $("#mostrar").click(function(){
+        
+        $('#medicamentos').toggle(1000); 
+    });
+});
+</script>
+<script>
+    $(document).ready(function() {
+        $('#tabla_medicamentos').DataTable();
+    } );
+    </script>
+{% endblock %}
+
+

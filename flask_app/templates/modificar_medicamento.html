@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block titulo %}Modificar medicamento{% endblock %}
+{% block contenido %}
+{% include "__menu.html" %}
+<div class="container  mt-5">
+<div class="row w-50 text-white">
+    <div class="form-group ">
+        <h2>Modificar medicamento</h2>
+    </div>
+    <div class="col">
+        
+        
+        <form action="/modificar/{{medicamento.id}}/medicamento" method="POST">
+            
+            <div class="form-group">
+                <label for="id">ID:</label>
+                <input  class="form-control" type="text" name="id" value="{{medicamento.id}}" readonly>
+            </div>
+            <div class="form-group ">
+                <label for="descripcion">Descripcion:</label>
+                <input  class="form-control" type="text" name="descripcion" value="{{medicamento.descripcion}}">
+            </div>
+
+            <input class="btn btn-warning" type="submit" value="modificar">
+        </form>
+        
+    </div>
+</div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+{% block librerias %}
+
+{% endblock %}
+
+

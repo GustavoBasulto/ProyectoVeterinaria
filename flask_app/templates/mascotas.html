@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block titulo %}Mascotas{% endblock %}
+{% block contenido %}
+{% include "__menu.html" %}
+<div class="container-fluid  mt-5">
+<h3 class="text-white">Mascotas</h3>
+<button class="btn btn-secondary mb-3" type="button" id="mostrar">
+    Agregar mascota
+</button>
+
+<div class="row w-25" id="mascotas" style="display: none;">
+    <div class="col">
+        <form action="/agregar_mascota" method="POST">
+            
+            <div class="mb-3">
+                <label for="nombre_mascota" class="form-label">Nombre:</label>
+                <input  class="form-control" type="text" name="nombre_mascota" id="nombre_mascota" value="">
+            </div>
+            <div class="mb-3">
+                <label for="tipo_mascota"  class="form-label">Tipo mascota:</label>
+                <select name="tipo_mascota" id="" class="form-control">
+                    <option value="Canino">Canino</option>
+                    <option value="Felino">Felino</option>
+                    <option value="Pez">Pez</option>
+                    <option value="Reptil">Reptil</option>
+                    <option value="Ave">Ave</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="sexo"  class="form-label">Sexo:</label>
+                <select name="sexo" id="" class="form-control">
+                    <option value="hembra">Hembra</option>
+                    <option value="macho">Macho</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="raza" class="form-label">Raza:</label>
+                <input  class="form-control" type="text" name="raza" id="raza" value="">
+            </div> 
+            <div class="mb-3">
+                <label for="dueño"  class="form-label">Dueño:</label>
+                <select name="dueño" id="" class="form-control">
+                    {% for dueño in dueños %}
+                    <option value="{{dueño.identificacion}}">{{dueño.nombre}} {{dueño.apellido_p}}</option>
+                    {% endfor %}
+                    
+                </select>
+            </div>           
+            <div class="mb-3">
+                <input class="btn btn-success" type="submit" value="Agregar">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="bg-white p-3 border rounded">
+<table class="table table-striped table-bordered dt-responsive nowrap bg-white" style="width:100%" id="tabla_mascotas">
+    <thead>
+        <tr>
+            <th>Mascota</th>
+            <th>Dueño</th>
+            <th>Tipo</th>
+            <th>Raza</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mascota in mascotas %}
+        <tr>
+            <td>{{mascota.nombre_mascota}}</td>
+            <td>{{mascota.nombre}} {{mascota.apellido_p}}</td>
+            <td>{{mascota.tipo_mascota}}</td>
+            <td>{{mascota.raza}}</td>
+
+            <td><a href="/mascotas/{{mascota.id}}/modificar"  class="btn btn-warning"><i class='bx bx-edit bx-sm' alt="modificar"></i></a>
+            <a href="/eliminar_mascota/{{mascota.id}}" class="btn btn-danger"><i class='bx bx-x-circle bx-sm' alt="eliminar"></i></a></td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+{% block librerias %}
+<script>
+$(document).ready(function(){
+    $("#mostrar").click(function(){
+        
+        $('#mascotas').toggle(1000); 
+    });
+});
+</script>
+<script>
+    $(document).ready(function() {
+        $('#tabla_mascotas').DataTable();
+    } );
+    </script>
+
+{% endblock %}
+
+

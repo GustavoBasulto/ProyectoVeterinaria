@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block titulo %}Administracion{% endblock %}
+
+{% block contenido %}
+{% include '__menu.html' %}
+<div class="container-fluid  mt-5">
+    <h3 class="text-white">Administración usuarios</h3>
+    <button class="btn btn-secondary mb-3" type="button" id="mostrar">
+        Agregar usuario
+    </button>
+    <div class="row" id="usuarios" style="display: none;">
+        <div class="col-3">    
+        <form action="/agregar_usuario" method="POST" class="text-white">
+                
+                    <div class="mb-3">
+                        <label for="identificacion" class="form-label">Identificación:</label>
+                        <input  class="form-control" type="text" name="identificacion" id="identificacion" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input  class="form-control" type="text" name="nombre" id="nombre" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido"  class="form-label">Apellido Paterno:</label>
+                        <input  class="form-control" type="text" name="apellidoP" id="apellidoP" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido"  class="form-label">Apellido Materno:</label>
+                        <input  class="form-control" type="text" name="apellidoM" id="apellidoM" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono"  class="form-label">Telefono:</label>
+                        <input  class="form-control" type="number" name="telefono" id="telefono" value="">
+                    </div>
+                </div>
+                <div class="col-3 text-white">
+                    <div class="mb-3">
+                        <label for="tipo"  class="form-label">Tipo Usuario:</label>
+                        <select class="form-control w-100"id="tipo" name="tipo">
+                            <option value="1">Administrador</option>
+                            <option value="2">Veterinario</option>
+                            <option value="3">Dueño</option>
+
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mail" class="form-label">Email:</label>
+                        <input  class="form-control" type="email" name="mail" id="mail" value="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="contraseña" class="form-label">Contraseña:</label>
+                        <input  class="form-control" type="password" name="contraseña" id="contraseña">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm" class="form-label">Confirmar Contraseña:</label>
+                        <input  class="form-control" type="password" name="confirm" id="confirm">
+                    </div>
+                    <div class="mb-3">
+                    <input class="btn btn-success" type="submit" value="Agregar">
+                    </div>
+                </div>
+            </form>
+    </div>
+
+<div class="bg-white p-3 border rounded">
+<table class="table table-striped table-bordered dt-responsive nowrap bg-white" style="width:100%" id="tabla_administracion">
+    <thead>
+        <tr>
+            <th>Identificacion</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Mail</th>
+            <th>Tipo Usuario</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{usuario.id}}</td>
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.apellidoP}}</td>
+            <td>{{usuario.mail}}</td>
+            {%if usuario.tipo_usuario==1%}
+            <td>Administrador</td>
+            {%endif%}
+            {%if usuario.tipo_usuario==2%}
+            <td>Veterinario</td>
+            {%endif%}
+            {%if usuario.tipo_usuario==3%}
+            <td>Dueño mascota</td>
+            {%endif%}
+            
+            <td>
+                <a href="/usuarios/{{usuario.id}}/modificar"  class="btn btn-warning"><i class='bx bx-edit bx-sm' alt="modificar"></i></a>
+                <a href="/eliminar/{{usuario.id}}" class="btn btn-danger"><i class='bx bx-x-circle bx-sm' alt="eliminar"></i></a>
+            </td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+</div>
+</div>
+
+{% endblock %}
+{% block librerias %}
+<script>
+$(document).ready(function(){
+    $("#mostrar").click(function(){
+        
+        $('#usuarios').toggle(1000); 
+    });
+});
+</script>
+<script>
+    $(document).ready(function() {
+        $('#tabla_administracion').DataTable();
+    } );
+    </script>
+
+{% endblock %}

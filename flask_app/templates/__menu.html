@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">SitemaVet</a>
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="/inicio">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/atenciones">Atenciones</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/mascotas">Mascotas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/medicamentos">Medicamentos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/administracion">Administracion</a>
+          </li>
+       
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <p class="my-2 my-sm-0 mr-3">Hola, {{session['nombre']}}</p>
+        {%if session['tipo']==1%}
+        <p class="my-2 my-sm-0 mr-3">Perfil: Administrador</p>
+        {%elif session['tipo']==2%}
+        <p class="my-2 my-sm-0 mr-3">Perfil: Veterinario</p>
+        {%elif session['tipo']==3%}
+        <p class="my-2 my-sm-0 mr-3">Perfil: Dueño Mascota</p>
+        {%endif%}
+        <a class="btn btn-outline-primary my-2 my-sm-0" href="/cerrar_session">Salir</a>
+      </form>
+    </div>
+  </nav>
+
+    
